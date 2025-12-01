@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!--
+@file obs.html
+@description
+Cette page est la vue observateur (OBS) de l'application Battle Map VTT.
+Elle est conçue pour être affichée sur un écran secondaire, une projection, ou dans un logiciel de streaming (comme OBS Studio).
+Elle affiche en temps réel la carte de bataille et les tokens, sans aucune interaction possible,
+en se synchronisant directement avec le serveur via Socket.IO.
+-->
+<html lang="fr">
+<head>
+    <!-- Balise meta pour définir l'encodage des caractères à UTF-8. -->
+    <meta charset="UTF-8">
+    <!-- Titre de la page qui apparaît dans l'onglet du navigateur ou comme titre de la source OBS. -->
+    <title>Battle Map - Vue OBS</title>
+    <!-- Lien vers le fichier de styles CSS principal de l'application. -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- Styles CSS spécifiques à la vue OBS pour garantir un affichage plein écran et noir. -->
+    <style>
+        /* Réinitialise les marges et paddings pour le corps et HTML, masquant le débordement. */
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #000; /* Fond noir pour la vue OBS. */
+        }
+        /* Le canvas occupe toute la largeur et la hauteur de la fenêtre. */
+        #map-canvas {
+            display: block; /* Supprime l'espace en bas du canvas causé par 'inline-block'. */
+            width: 100vw;   /* 100% de la largeur du viewport. */
+            height: 100vh;  /* 100% de la hauteur du viewport. */
+        }
+    </style>
+</head>
+<body>
+    <!-- Élément canvas où la carte de bataille et les tokens seront dessinés par JavaScript. -->
+    <canvas id="map-canvas"></canvas>
+    <!-- Section d'inclusion des scripts JavaScript. -->
+    <!-- Bibliothèque cliente Socket.IO pour la communication en temps réel avec le serveur. -->
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <!-- Script JavaScript principal pour la logique de la vue observateur. -->
+    <script src="/js/obs_app.js"></script>
+</body>
+</html>

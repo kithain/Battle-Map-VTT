@@ -1,5 +1,8 @@
 # Battle Map VTT
 
+## Project Overview
+This project is a real-time Virtual Tabletop (VTT) application designed for Game Masters (GMs) to manage battle maps and tokens. It features real-time synchronization between a main interactive GM view and a dedicated observer view, powered by Socket.IO. The application also integrates with an external Webtracker system for automated participant (players, allies, NPCs) token management, ensuring dynamic and persistent game state across sessions.
+
 ## Description
 Ce projet est une application de Tabletop Virtuel (VTT) conçue pour la gestion en temps réel de cartes de bataille et de tokens, avec une intégration à un système Webtracker pour les données des participants. Elle permet aux Maîtres de Jeu de synchroniser facilement l'état du jeu entre plusieurs clients, incluant une vue principale interactive et une vue observateur dédiée.
 
@@ -97,29 +100,28 @@ Pour permettre à d'autres appareils sur votre réseau local d'accéder aux vues
 ## Structure des dossiers
 ```
 .
-├───favicon.ico
-├───index.html                # Vue principale de l'application
-├───obs.html                  # Vue observateur
-├───server_sync.py            # Serveur Socket.IO pour la synchronisation
-├───server.py                 # Serveur HTTP pour fichiers statiques
-├───assets/
-│   ├───portraits/
-│   └───tokens/
+├───favicon.ico               # Icône du site affichée dans l'onglet du navigateur.
+├───index.html                # Vue principale de l'application (pour le Maître de Jeu).
+├───obs.html                  # Vue observateur (affichage sans interaction).
+├───server_sync.py            # Serveur Socket.IO responsable de la synchronisation en temps réel des données (carte, tokens) entre les clients. Gère également la persistance des données.
+├───server.py                 # Serveur HTTP statique pour servir les fichiers frontend (HTML, CSS, JS) de l'application.
+├───assets/                   # Contient les ressources statiques de l'application.
+│   ├───portraits/            # Emplacement par défaut pour les images de portraits des personnages (joueurs, PNJ, etc.).
+│   └───tokens/               # Emplacement par défaut pour les images des tokens à utiliser sur la carte.
 ├───css/
-│   └───style.css             # Styles de l'application
-├───data/
-│   ├───saved_map.json        # État persistant de la carte
-│   ├───saved_tokens.json     # État persistant des tokens
-│   ├───maps/                 # Images de cartes sauvegardées
-│   │   └───current_map.jpeg
-│   └───portraits/            # Portraits locaux (fallback)
-│       ├───Allies/
-│       ├───Players/
-│       └───PNJ/
+│   └───style.css             # Fichier de styles CSS principal pour l'ensemble de l'application.
+├───data/                     # Stocke les données persistantes de l'application.
+│   ├───saved_map.json        # Fichier JSON sauvegardant l'URL de l'image de la carte actuellement chargée (ex: `{"map": "/maps/current_map.jpeg"}`).
+│   ├───saved_tokens.json     # Fichier JSON sauvegardant l'état de tous les tokens actifs sur la carte, incluant leurs positions, tailles, couleurs, noms et URLs de portraits (ex: `{"tokens": [...]}`).
+│   ├───maps/                 # Répertoire pour stocker les images des cartes de bataille uploadées.
+│   │   └───current_map.jpeg  # Exemple d'image de carte actuellement chargée.
+│   └───portraits/            # Répertoire local pour les portraits, utilisé comme fallback ou pour des portraits spécifiques.
+│       ├───Allies/           # Sous-répertoire pour les portraits des alliés.
+│       ├───Players/          # Sous-répertoire pour les portraits des joueurs.
+│       └───PNJ/              # Sous-répertoire pour les portraits des Personnages Non-Joueurs.
 └───js/
-    ├───app.js                # Logique frontend de la vue principale
-    ├───obs_app.js            # Logique frontend de la vue observateur (canvas)
-    ├───socket.io.js
-    ├───socket.io.min.js
-    └───webtracker-connector.js # Module de connexion à l'API Webtracker
-```
+    ├───app.js                # Logique JavaScript principale pour la vue du Maître de Jeu (gestion de l'UI, Socket.IO client, Webtracker).
+    ├───obs_app.js            # Logique JavaScript pour la vue observateur (rendu de la carte et des tokens sur canvas).
+    ├───socket.io.js          # Bibliothèque cliente Socket.IO (version complète), utilisée pour la communication en temps réel.
+    ├───socket.io.min.js      # Version minifiée de la bibliothèque cliente Socket.IO.
+    └───webtracker-connector.js # Module JavaScript pour la connexion et l'interaction avec l'API Webtracker externe.```

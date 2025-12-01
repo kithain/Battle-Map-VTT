@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!--
+@file index.html
+@description
+Cette page est la vue principale de l'application Battle Map VTT (Virtual Tabletop) destinée au Maître de Jeu (MJ).
+Elle fournit l'interface utilisateur pour charger des cartes, gérer des tokens, interagir avec le Webtracker
+et visualiser l'état du jeu en temps réel.
+-->
+<html lang="fr">
+<head>
+    <!-- Balise meta pour définir l'encodage des caractères à UTF-8, assurant un affichage correct des caractères spéciaux. -->
+    <meta charset="UTF-8">
+    <!-- Balise meta pour configurer le viewport, essentielle pour la réactivité sur différents appareils. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Titre de la page qui apparaît dans l'onglet du navigateur. -->
+    <title>Battle Map VTT</title>
+    <!-- Lien vers le fichier de styles CSS principal de l'application. -->
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+    <!-- Conteneur principal de l'application, utilisant Flexbox pour organiser la barre d'outils et la zone de bataille. -->
+    <div class="container">
+        <!-- Barre d'outils située en haut de l'application, contenant les contrôles principaux. -->
+        <div class="toolbar">
+            <!-- Groupe d'outils pour la gestion de la carte. -->
+            <div class="tool-group">
+                <button id="load-map-btn">Charger une carte</button>
+                <button id="refresh-map-btn">Actualiser la carte</button>
+                <!-- Champ de saisie de fichier caché, déclenché par le bouton "Charger une carte". -->
+                <input type="file" id="map-upload" accept="image/*" style="display: none;">
+            </div>
+            <!-- Groupe d'outils pour la gestion des tokens. -->
+            <div class="tool-group">
+                <button id="clear-tokens-btn">Effacer les tokens</button>
+            </div>
+            <!-- Groupe d'outils et d'informations pour l'intégration Webtracker. -->
+            <div class="tool-group webtracker-section">
+                <button id="reconnect-webtracker-btn">Reconnecter Webtracker</button>
+                <label for="webtracker-url" style="margin-left:10px;">URL :</label>
+                <!-- Champ de saisie pour l'URL de l'API Webtracker. -->
+                <input type="text" id="webtracker-url" value="http://localhost:5000" style="width:180px;margin-left:4px;" />
+                <!-- Affichage du statut de connexion au Webtracker. -->
+                <span id="webtracker-status" class="disconnected" style="margin-left:10px;">Non connecté</span>
+            </div>
+        </div>
+        <!-- Zone principale où la carte de bataille, la grille et les tokens sont affichés. -->
+        <div class="battle-area">
+            <!-- Conteneur pour la grille, la carte et les tokens, gère leur superposition. -->
+            <div class="grid-container" id="grid-container">
+                <!-- Superposition de la grille visuelle. -->
+                <div class="grid-overlay" id="grid-overlay"></div>
+                <!-- Conteneur pour l'image de la carte. -->
+                <div class="map-container" id="map-container"></div>
+                <!-- Conteneur pour tous les éléments de token. -->
+                <div class="tokens-container" id="tokens-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section d'inclusion des scripts JavaScript. -->
+    <!-- Bibliothèque cliente Socket.IO pour la communication en temps réel avec le serveur. -->
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <!-- Script gérant la connexion et l'interaction avec l'API Webtracker externe. -->
+    <script src="js/webtracker-connector.js"></script>
+    <!-- Script principal de l'application Battle Map VTT (vue Maître de Jeu). -->
+    <script src="js/app.js"></script>
+</body>
+</html>

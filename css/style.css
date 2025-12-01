@@ -1,0 +1,293 @@
+/* -*- coding: utf-8 -*- */
+/**
+ * @file style.css
+ * @description
+ * Ce fichier CSS définit la présentation visuelle et le style de l'application Battle Map VTT.
+ * Il couvre les styles globaux, la mise en page des éléments principaux, l'apparence des
+ * barres d'outils, la zone de la carte de bataille, la grille, et l'affichage des tokens.
+ */
+
+/* =================================================================================
+   Reset et Styles de Base
+   ================================================================================= */
+* {
+    /* Réinitialise les marges et paddings par défaut de tous les éléments */
+    margin: 0;
+    padding: 0;
+    /* Inclut le padding et la bordure dans la largeur/hauteur totale de l'élément */
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif; /* Définit la police de caractères */
+    background-color: #f0f0f0;    /* Couleur de fond générale de l'application */
+    height: 100vh;                /* Occupe 100% de la hauteur de la fenêtre */
+    overflow: hidden;             /* Empêche le défilement global de la page */
+}
+
+.container {
+    display: flex;         /* Utilise Flexbox pour la mise en page principale */
+    flex-direction: column; /* Organise les éléments en colonne (barre d'outils, zone de bataille) */
+    height: 100vh;         /* Occupe 100% de la hauteur de la fenêtre */
+}
+
+/* =================================================================================
+   Styles pour la Barre d'Outils
+   ================================================================================= */
+.toolbar {
+    background-color: #333; /* Couleur de fond sombre pour la barre d'outils */
+    color: white;           /* Couleur du texte blanc */
+    padding: 10px;          /* Espacement interne */
+    display: flex;          /* Utilise Flexbox pour aligner les éléments de la barre d'outils */
+    justify-content: flex-start; /* Aligne les éléments au début de la ligne */
+    flex-wrap: wrap;        /* Permet aux éléments de passer à la ligne si l'espace est insuffisant */
+    gap: 10px;              /* Espacement entre les éléments de la barre d'outils */
+}
+
+.tool-group {
+    display: flex;         /* Utilise Flexbox pour regrouper des outils */
+    align-items: center;   /* Centre verticalement les éléments du groupe */
+}
+
+button {
+    background-color: #4CAF50; /* Couleur de fond verte pour les boutons */
+    color: white;             /* Couleur du texte blanc */
+    border: none;             /* Pas de bordure */
+    padding: 8px 12px;        /* Espacement interne */
+    margin: 0 5px;            /* Marge horizontale pour séparer les boutons */
+    border-radius: 4px;       /* Coins légèrement arrondis */
+    cursor: pointer;          /* Curseur de type "main" au survol */
+    font-size: 14px;          /* Taille de la police */
+}
+
+button:hover {
+    background-color: #45a049; /* Assombrit le bouton au survol */
+}
+
+
+/* =================================================================================
+   Styles pour la Section Webtracker
+   ================================================================================= */
+.webtracker-section {
+    display: flex;       /* Utilise Flexbox pour aligner les éléments liés au Webtracker */
+    align-items: center; /* Centre verticalement les éléments */
+    flex-wrap: wrap;     /* Permet le retour à la ligne sur petits écrans */
+}
+
+#webtracker-status {
+    padding: 3px 6px;       /* Espacement interne */
+    border-radius: 4px;     /* Coins arrondis */
+    margin: 0 5px;          /* Marge pour séparer de l'élément voisin */
+    font-size: 12px;        /* Taille de police réduite */
+    text-align: center;     /* Centrage du texte */
+    min-width: 70px;        /* Largeur minimale pour le statut */
+}
+
+/* Couleurs de statut spécifiques */
+#webtracker-status.connected {
+    background-color: #4CAF50; /* Vert pour connecté */
+    color: white;
+}
+
+#webtracker-status.disconnected {
+    background-color: #f44336; /* Rouge pour déconnecté */
+    color: white;
+}
+
+#webtracker-status.connecting {
+    background-color: #2196F3; /* Bleu pour en connexion */
+    color: white;
+}
+
+#webtracker-status.error {
+    background-color: #ff9800; /* Orange pour erreur */
+    color: white;
+}
+
+#webtracker-status.demo {
+    background-color: #9c27b0; /* Violet pour mode démo */
+    color: white;
+}
+
+.webtracker-options {
+    display: flex;         /* Utilise Flexbox pour aligner les options */
+    align-items: center;   /* Centre verticalement */
+    margin-left: 10px;     /* Marge à gauche pour séparer du statut */
+}
+
+#webtracker-url {
+    padding: 5px;           /* Espacement interne */
+    border-radius: 4px;     /* Coins arrondis */
+    border: 1px solid #ccc; /* Bordure légère */
+    width: 200px;           /* Largeur fixe */
+    margin: 0 5px;          /* Marge horizontale */
+}
+
+#refresh-webtracker {
+    background-color: #2196F3; /* Bleu pour le bouton de rafraîchissement */
+}
+
+#refresh-webtracker:hover {
+    background-color: #0b7dda; /* Assombrit au survol */
+}
+
+/* =================================================================================
+   Styles pour la Zone de Bataille
+   ================================================================================= */
+.battle-area {
+    flex: 1;                 /* Occupe l'espace restant verticalement */
+    position: relative;      /* Permet le positionnement absolu des enfants */
+    overflow: auto;          /* Permet le défilement si le contenu dépasse */
+    background-color: #ddd;  /* Couleur de fond par défaut de la zone de bataille */
+    display: flex;           /* Utilise Flexbox */
+    justify-content: center; /* Centre horizontalement le contenu (carte, grille, tokens) */
+    align-items: flex-start; /* Aligne le contenu en haut */
+}
+
+/* =================================================================================
+   Styles pour la Grille et la Surcouche de la Grille
+   ================================================================================= */
+.grid-container {
+    position: relative; /* Positionnement relatif pour que les enfants absolus soient positionnés par rapport à lui */
+    width: auto;        /* La largeur s'adapte au contenu (image de carte) */
+    height: auto;       /* La hauteur s'adapte au contenu */
+    overflow: visible;  /* Assure que tout contenu débordant est visible */
+    margin: 0 auto;     /* Centrage horizontal */
+}
+
+.grid-overlay {
+    position: absolute;   /* Superpose la grille sur la carte */
+    top: 0;
+    left: 0;
+    width: 100%;          /* Occupe toute la largeur de son parent (.grid-container) */
+    height: 100%;         /* Occupe toute la hauteur de son parent */
+    /* Crée la grille visuelle avec des dégradés linéaires */
+    background-image: 
+        linear-gradient(to right, rgba(0, 0, 0, 0.1) 1px, transparent 1px), /* Lignes verticales */
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 1px, transparent 1px); /* Lignes horizontales */
+    background-size: 10px 10px; /* Définit la taille des cellules de la grille */
+    pointer-events: none; /* Permet aux événements de souris de passer à travers la grille vers les éléments en dessous */
+    z-index: 10;          /* Assure que la grille est au-dessus de la carte mais en dessous des tokens */
+}
+
+/* =================================================================================
+   Styles pour les Cartes (Maps)
+   ================================================================================= */
+.map-container {
+    position: absolute; /* Positionne le conteneur de carte par rapport au .grid-container */
+    top: 0;
+    left: 0;
+    width: 100%;          /* Occupe toute la largeur du .grid-container */
+    height: 100%;         /* Occupe toute la hauteur du .grid-container */
+    z-index: 5;           /* Place la carte en dessous de la grille et des tokens */
+}
+
+.map-image {
+    width: auto;          /* L'image prend sa largeur naturelle */
+    height: auto;         /* L'image prend sa hauteur naturelle */
+    max-width: none;      /* Annule toute restriction de largeur maximale */
+    max-height: none;     /* Annule toute restriction de hauteur maximale */
+    display: block;       /* Supprime l'espace sous l'image causé par `inline-block` */
+}
+
+/* =================================================================================
+   Styles pour les Tokens
+   ================================================================================= */
+.tokens-container {
+    position: absolute; /* Positionne le conteneur des tokens par rapport au .grid-container */
+    top: 0;
+    left: 0;
+    width: 100%;          /* Occupe toute la largeur du .grid-container */
+    height: 100%;         /* Occupe toute la hauteur du .grid-container */
+    z-index: 15;          /* Place les tokens au-dessus de la grille */
+}
+
+.token {
+    position: absolute;        /* Permet de positionner librement le token sur la carte */
+    cursor: move;             /* Curseur indiquant que le token est déplaçable */
+    width: 30px;               /* Largeur par défaut du token */
+    height: 30px;              /* Hauteur par défaut du token */
+    border-radius: 50%;        /* Rend le token circulaire */
+    background-color: rgba(255, 0, 0, 0.7); /* Couleur de fond par défaut (rouge transparent) */
+    border: 2px solid white;   /* Bordure blanche */
+    display: flex;             /* Utilise Flexbox pour centrer le contenu interne (portrait, nom) */
+    flex-direction: column;    /* Dispose le contenu en colonne */
+    justify-content: center;   /* Centre verticalement le contenu */
+    align-items: center;       /* Centre horizontalement le contenu */
+    user-select: none;         /* Empêche la sélection de texte lors du drag */
+    z-index: 20;               /* Place les tokens au-dessus de tout le reste */
+}
+
+/* Pseudo-classe pour le token en cours de drag */
+.token.dragging {
+    cursor: grabbing; /* Curseur pendant le drag */
+    z-index: 1000;    /* Met le token au premier plan pendant le drag */
+}
+
+.token-portrait {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 80%;
+    height: 80%;
+    transform: translate(-50%, -50%); /* Centre l'image de portrait à l'intérieur du token */
+    border-radius: 50%; /* Applique la forme circulaire à l'image */
+    z-index: 1; /* S'assure que le portrait est sous les icônes de statut */
+    object-fit: cover; /* Recadre l'image pour couvrir le cercle */
+}
+
+/* Styles pour la surcouche de statut des tokens */
+.token-status-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: row; /* Icônes de statut alignées horizontalement */
+    gap: 2px;
+    z-index: 2; /* Au-dessus du portrait */
+    pointer-events: none; /* Permet les clics à travers la surcouche */
+}
+
+.token-status-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1.5px solid #ccc;
+    background: rgba(0,0,0,0.4);
+    margin-left: 0;
+    margin-top: 0;
+    box-shadow: 0 1.5px 3px rgba(0,0,0,0.2);
+}
+
+.token-status-duration {
+    font-size: 1em;
+    color: #fff;
+    background: rgba(0,0,0,0.7);
+    border-radius: 2.5px;
+    margin-left: 3px;
+    padding: 0 4px;
+    line-height: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+}
+
+.token img { /* Legacy, si une image est directement insérée dans le token */
+    max-width: 80%;
+    max-height: 80%;
+    border-radius: 50%;
+}
+
+.token .token-name {
+    position: absolute;
+    bottom: -20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-size: 10px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 100%; /* S'assure que le nom ne dépasse pas la largeur du token */
+}
